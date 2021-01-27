@@ -49,3 +49,59 @@ Comments and white space have no meaning except for separating tokens.
 
 •	 ( ) is for grouping multiple syntactical elements.
 
+Semantics
+Except for a few exceptions the semantics of MiniJava is consistent with the semantics
+of Java. The latter is described in [GJSB00]. The exceptions are:
+• The method main(String[] args) must not be called.
+• The definite assignment rules of Java need not be checked.
+• There must be exactly one MainMethod in a MiniJava program.
+
+MiniJava Grammar
+Program	::=	MainClass ( ClassDeclaration )* <EOF>
+MainClass	::=	"class" Identifier "{" "public" "static" "void" "main" "(" "String" "[" "]" Identifier ")" "{" Statement "}" "}"
+ClassDeclaration	::=	"class" Identifier ( "extends" Identifier )? "{" ( VarDeclaration )* ( MethodDeclaration )* "}"
+VarDeclaration	::=	Type Identifier ";"
+MethodDeclaration	::=	"public" Type Identifier "(" ( Type Identifier ( "," Type Identifier )* )? ")" "{" ( VarDeclaration )* ( Statement )* "return" Expression ";" "}"
+Type	::=	"int" "[" "]"
+|	"boolean"
+|	"int"
+|	Identifier
+Statement	::=	"{" ( Statement )* "}"
+|	"if" "(" Expression ")" Statement "else" Statement
+|	"while" "(" Expression ")" Statement
+|	"System.out.println" "(" Expression ")" ";"
+|	Identifier "=" Expression ";"
+|	Identifier "[" Expression "]" "=" Expression ";"
+Expression	::=	Expression ( "&&" | "<" | "+" | "-" | "*" ) Expression
+|	Expression "[" Expression "]"
+|	Expression "." "length"
+|	Expression "." Identifier "(" ( Expression ( "," Expression )* )? ")"
+|	<INTEGER_LITERAL>
+|	"true"
+|	"false"
+|	Identifier
+|	"this"
+|	"new" "int" "[" Expression "]"
+|	"new" Identifier "(" ")"
+|	"!" Expression
+|	"(" Expression ")"
+Identifier	::=	<IDENTIFIER>
+  
+Sample program
+class Factorial{
+    public static void main(String[] a){
+        System.out.println(new Fac().ComputeFac(10));
+    }
+}
+
+class Fac {
+    public int ComputeFac(int num){
+        int num_aux ;
+        if (num < 1)
+            num_aux = 1 ;
+        else
+            num_aux = num * (this.ComputeFac(num-1)) ;
+        return num_aux ;
+    }
+}
+
