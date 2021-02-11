@@ -15,4 +15,7 @@
 ![12](https://user-images.githubusercontent.com/66685640/107610071-8d691100-6c62-11eb-89f5-8a7b2a9ea1ae.jpg)
 
 
-# DFA from the NFA
+# Table
+
+![image](https://user-images.githubusercontent.com/71581109/107633432-d4b6c800-6c89-11eb-83c9-a4ecf589491a.png)
+
