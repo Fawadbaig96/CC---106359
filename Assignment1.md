@@ -25,6 +25,37 @@
 
 # Code
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace AutomataProject_Spring_20
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+          (a+b)(a+b+0+1+_+.)*@(a+b+0+1+.)*
+
+            //////////////////////// TRANSITION TABLE /////////////////////////////////////////
+            Dictionary<int, Dictionary<char, int>> dfa = new Dictionary<int, Dictionary<char, int>>()
+            {
+                {
+                  //Current State           //next_state_for 'a'       //next_state_for 'b'
+                     0,new Dictionary<char, int>{  { 'a', 2 } ,               {'b',2} }
+                },
+                {
+                     1,new Dictionary<char, int>{{ 'a', 2 } ,                {'0',3} }
+                },
+                {
+                     2,new Dictionary<char, int>{{ 'b', 2 } ,                {'1',3} }
+                },
+                {
+                     3,new Dictionary<char
+
 
 
  public static bool accepts(Dictionary<int, Dictionary<char, int>> transitions, int initial, int[] arr ,string s)
