@@ -63,6 +63,7 @@ A context-free grammar consists of a number of productions. Each production has 
 
 Starting from a sentence consisting of a single distinguished nonterminal, called the goal symbol, a given context-free grammar specifies a language, namely, the set of possible sequences of terminal symbols that can result from repeatedly replacing any nonterminal in the sequence with a right-hand side of a production for which the nonterminal is the left-hand side.
 
+## Lexical Specifications ##
 
 In MiniJava we accept identifiers consisting of ASCII characters only, integer literals including octal and hexadecimal, and character and string literals consisting of ASCII characters only, and including escapes.
 Types
