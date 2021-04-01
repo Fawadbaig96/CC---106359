@@ -1,122 +1,51 @@
 %{
-    #include <string.h>
-    #include "y.tab.h"
+#include<stdio.h>
+#define OP 0
+#define ID 1
+#define Number 2
+#define Keyword 3
+#define Spaces 4
+#define Bracket 5
+#define Comment 6
+#define Punctuation 7
+#define Specifier 8
+#define String 9
+#define Program 10
+#define Print 11
 
-    #define YYSTYPE char*
-
-    int line = 1;
 %}
 
-letter                      [a-zA-Z]
-digit                       [0-9]
+%%
+
+"class" {printf("\n %d Start of the program:%s",Program,yytext);}
+main {printf("\n %d Name of class:%s",Program,yytext);}
+"+"|"-"|"*"|"/" {printf("\n %d Operators:%s",OP,yytext);}
+"<"|">"|"=="|"!=" {printf("\n %d Comparision Operators:%s",OP,yytext);}
+"=" {printf("\n %d Assignment:%s",OP,yytext);}
+"&&"|"||" {printf("\n %d Logical Operators:%s",OP,yytext);}
+[a-zA-Z] {printf("\n %d Letters:%s",String,yytext);}
+[0-9]* {printf("\n %d Digits:%s",Number,yytext);}
+"("|")"|"["|"]"|"{"|"}" {printf("\n %d Brackets:%s",Bracket,yytext);}
+int|void|boolean|double|float {printf("\n %d Keywords:%s",Keyword,yytext);}
+"."|";"|"," {printf("\n %d Punctuations:%s",Punctuation,yytext);}
+private|static {printf("\n %d Specifiers:%s",Specifier,yytext);}
+if|else {printf("\n %d Loops:%s",Keyword,yytext);}
+void|int {printf("\n %d Return type:%s",Keyword,yytext);}
+"System.out.println"|"System.out.print" {printf("\n %d Print statement:%s",Print,yytext);}
+[a-zA-Z]+[_a-zA-Z0-9]* {printf("\n %d Variable:%s",ID,yytext);}
+null|return|this|new|true|false {printf("\n %d Reserved Keywords:%s",Keyword,yytext);}
+do|while|switch {printf("\n %d Loop Statements:%s",Keyword,yytext);}
+[ |\n|\t|" "] {printf("\n %d Whitespaces:%s",Spaces,yytext);}
+"*/"
+
+"//"[a-zA-Z0-9!@#.,:$%^&*()_+]*|"/*"[a-zA-Z0-9!@#$%^&*()_+]*"*/" {printf("\n %d Comment:%s",Comment,yytext);}
 
 %%
 
-[ \t\r]+                                            {   /* skip */    }
-"."{letter}({letter}|{digit}|"_")* printf("%d %s\n",ID,yytext); //{ yylval = strdup(yytext); return _POINT_ID;}
-{letter}({letter}|{digit}|"_")*"[" { yylval = strdup(yytext); return _ARRAY_VALUE;}
+int main()
+{
+  yylex();
 
-"eol"                       { yylval = strdup(yytext);  return _CHAR;     }
-"switch"                    { yylval = strdup(yytext); return _SWITCH; }
-"void"                      {yylval = strdup(yytext);  return _VOJD;}
-"while"                     { yylval = strdup(yytext); return _WHILE; }
-"break"                     { yylval = strdup(yytext); return _BREAK; }
-"null"                       { yylval = strdup(yytext);  return _NULL;     }
-"print"                    { yylval = strdup(yytext); return _PRINTF; }
-"program"                   { yylval = strdup(yytext); return _PROGRAM;}
-"class"                     { yylval = strdup(yytext); return _CLASS; }
-"const"                     { yylval = strdup(yytext); return _CONST; }
-"new"                       { yylval = strdup(yytext); return _NEW; }
-"read"                      { yylval = strdup(yytext); return _READ;}
-"extends"                   { yylval = strdup(yytext); return _EXTENDS; }
-"false"                     { yylval = strdup(yytext); return _FALSE; }
-"true"                      { yylval = strdup(yytext); return _TRUE; }
-"if"                        {  yylval = strdup(yytext);  return _IF;       }
-"else"                      {  yylval = strdup(yytext); return _ELSE;     }
-"return"                    {  yylval = strdup(yytext); return _RETURN;   }
-
-("int"|"void"|"char"|"bool"|"string"|({letter}({letter}|{digit}|"_")*))(" ")+({letter}({letter}|{digit}|"_")*)"("   { yylval = strdup(yytext); return _START_METHOD_DECL;}
-"("                         {yylval = strdup(yytext);   return _LPAREN;     }
-")"                         {yylval = strdup(yytext);    return _RPAREN;}
-"["                         {yylval = strdup(yytext); return _LSQUARE_BRACKET; }
-"]"                         {yylval = strdup(yytext); return _RSQUARE_BRACKET; }
-
-"."                         { yylval = strdup(yytext); return _DOT; }
-
-"string"                       { yylval = strdup(yytext);  return _TYPE;     }
-"bool"                       { yylval = strdup(yytext);  return _TYPE;     }
-"int"                       { yylval = strdup(yytext);  return _TYPE;     }
-"unsigned"                  {  yylval = strdup(yytext); return _TYPE;     }
-"char"                      {  yylval = strdup(yytext); return _TYPE;   }
-"double"                      {  yylval = strdup(yytext); return _TYPE;   }
-"float"                      {  yylval = strdup(yytext); return _TYPE;   }
-
-
-"'"."'"                     { yylval = strdup(yytext);  return _CHAR;  }
-digit*(.digit*)?            { yylval = strdup(yytext);  return _REAL;  }
-
-{letter}({letter}|{digit}|"_")* {  yylval = strdup(yytext);  return _ID;       }
-
-{digit}{1,5}[uU]            {   yylval = strdup(yytext); return _UNSIGNED_NUMBER;   }
-{digit}{1,5}           {  yylval = strdup(yytext);  return _INT_NUMBER;        }
-
-"~"                          {yylval = strdup(yytext); return _NOTB;}
-"&&"                        {yylval = strdup(yytext); return _AND;}
-"||"                        {yylval = strdup(yytext); return _OR;}
-"|"                        {yylval = strdup(yytext); return _ORB;}
-"&"                         {yylval = strdup(yytext); return _APERSANT; }
-"\""[^\"]*"\""                {yylval = strdup(yytext); return _STRING; }
-","                         {yylval = strdup(yytext);   return _COMMA;      }
-":"                         {yylval = strdup(yytext); return _COLON;      }
-"{"                         { yylval = strdup(yytext);  return _LBRACKET;   }
-"}"                         { yylval = strdup(yytext);  return _RBRACKET;   }
-"="                         {yylval = strdup(yytext);   return _ASSIGN;     }
-";"                         {yylval = strdup(yytext);    return _SEMICOLON;  }
-"++"                        { yylval = strdup(yytext); return _PLUS_PLUS; }
-"--"                        { yylval = strdup(yytext); return _MINUS_MINUS; }
-"+"                         {yylval = strdup(yytext);   return _PLUS;       }
-"-"                         {yylval = strdup(yytext);   return _MINUS;      }
-"*"                         {yylval = strdup(yytext);   return _TIMES;      }
-"/"                         {yylval = strdup(yytext);   return _DIV;        }
-"%"                         {yylval = strdup(yytext);   return _MOD;        }
-"<"                         {yylval = strdup(yytext);   return _RELOP;      }
-">"                         {yylval = strdup(yytext);   return _RELOP;      }
-"<="                        {yylval = strdup(yytext);   return _RELOP;      }
-">="                        {yylval = strdup(yytext);   return _RELOP;      }
-"=="                        {yylval = strdup(yytext);   return _RELOP;      }
-"!="                        {yylval = strdup(yytext);   return _RELOP;      }
-"!"                         {yylval = strdup(yytext); return _NOT; }
-
-
-""
-
-"#include <"(.*)">"            {yylval = strdup(yytext);   return _INCLUDE;    }
-
-"/*"                        {
-                                int in_comment = 1;
-                                char c;
-                                while(in_comment) {
-                                    c = input();
-                                    if(c == '*') {
-                                        char ch = input();
-                                        if(ch == '/') in_comment = 0;
-                                        else unput(ch);
-                                    }
-                                    else if(c == '\n') line++;
-                                    else if(c == EOF) {
-                                        printf("\nERROR (%d): Unterminated comment", line);
-                                        in_comment = 0;
-                                    }
-                                }
-                            }
-
-\/\/.*                      {   /* skip */   }
-
-"\n"                        {   line++;    }
-.                           { yylval = strdup(yytext);  printf("\nLEXICAL ERROR on character %d (line %d)\n", yytext[0], line);   }
-
-%%
-
-int yywrap() {
-    return 1;
 }
+
+
