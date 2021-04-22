@@ -61,5 +61,3 @@ We took a help from github members, copied their code, made some changes, it is 
 - [links](https://youtu.be/54bo1qaHAfk), YouTube video 1.
 - [links](https://youtu.be/__-wUHG2rfM), YouTube video 2.
 - [links](https://github.com/starbops/MJP), Github Link.
-- You see markdown is not that difficult.
-- You are CS students not some tom harry from BBA SHE-B-A :-).
