@@ -1,6 +1,6 @@
 MiniJava Compiler
 **106359**
-###PROJECT MEMBERS###
+### PROJECT MEMBERS###
 StdID | Name
 ------------ | -------------
 **63358** | **Sameen Azhar** 
@@ -25,7 +25,7 @@ public class HelloWorld {
 }
 
 ```
-##Lexical Specification##
+## Lexical Specification ##
 
 • White space: These are space, new line, carriage return and tabulator
 
@@ -39,7 +39,7 @@ public class HelloWorld {
 
 Comments and white space have no meaning except for separating tokens.
 
-###Grammar###
+### Grammar###
 
 MiniJava Grammar Program ::= MainClass ( ClassDeclaration )* MainClass ::= "class" Identifier "{" "public" "static" "void" "main" "(" "String" "[" "]" Identifier ")" "{" Statement "}" "}" ClassDeclaration ::= "class" Identifier ( "extends" Identifier )? "{" ( VarDeclaration )* ( MethodDeclaration )* "}" VarDeclaration ::= Type Identifier ";" MethodDeclaration ::= "public" Type Identifier "(" ( Type Identifier ( "," Type Identifier )* )? ")" "{" ( VarDeclaration )* ( Statement )* "return" Expression ";" "}" Type ::= "int" "[" "]" | "boolean" | "int" | Identifier Statement ::= "{" ( Statement )* "}" | "if" "(" Expression ")" Statement "else" Statement | "while" "(" Expression ")" Statement | "System.out.println" "(" Expression ")" ";" | Identifier "=" Expression ";" | Identifier "[" Expression "]" "=" Expression ";" Expression ::= Expression ( "&&" | "<" | "+" | "-" | "" ) Expression | Expression "[" Expression "]" | Expression "." "length" | Expression "." Identifier "(" ( Expression ( "," Expression ) )? ")" | <INTEGER_LITERAL> | "true" | "false" | Identifier | "this" | "new" "int" "[" Expression "]" | "new" Identifier "(" ")" | "!" Expression | "(" Expression ")" Identifier ::=
 
@@ -47,17 +47,17 @@ Sample program class Factorial{ public static void main(String[] a){ System.out.
 
 class Fac { public int ComputeFac(int num){ int num_aux ; if (num < 1) num_aux = 1 ; else num_aux = num * (this.ComputeFac(num-1)) ; return num_aux ; } }
 
-##Problems Faced##
+## Problems Faced##
 We faced a bunch of problems. By looking at Mr.Farooq Zaidi videos multiple times and took help from internet we made a lexical analyzer although our final phase also to make a parser. We watched several videos on YouTube and also Googled it but couldn't find any. We tried our best.
 
 ###Problem 1: How does Lexical Analyzer work?###
  
 By watching Sir Farooq Zaidi videos and looking at his lectures, we found out that it tokenizes the code one by one and creates a token stream.
 
-###Problem 2: YACC###
+### Problem 2: YACC###
 We took a help from github members, copied their code, made some changes, it is compiling correctly. Not giving any errors but when we are passing a syntax, it's giving a syntax error. We couldn't find any solution to it.
 
-##References##
+## References##
 - [links](https://youtu.be/54bo1qaHAfk), YouTube video 1.
 - [links](https://youtu.be/__-wUHG2rfM), YouTube video 2.
 - [links](https://github.com/starbops/MJP), Github Link.
